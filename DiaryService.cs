@@ -1,14 +1,14 @@
 // DiaryService.cs
 using System;
 using System.Collections.Generic;
-using System.IO;        
-using System.Text.Json; 
+using System.IO;
+using System.Text.Json;
+using System.Linq; 
 
 public class DiaryService
 {
     private const string FilePath = "diary_data.json";
 
-    
     public List<DiaryEntry> Entries { get; private set; } = new List<DiaryEntry>();
 
     public void AddEntry(DiaryEntry entry)
@@ -16,12 +16,29 @@ public class DiaryService
         Entries.Add(entry);
     }
 
- 
+    
+    public List<DiaryEntry> SearchEntries(string searchTerm)
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            return new List<DiaryEntry>();
+        }
+
+        string lowerSearchTerm = searchTerm.ToLower();
+
+        
+        return Entries
+            .Where(e => 
+                e.Title.ToLower().Contains(lowerSearchTerm) ||
+                e.Text.ToLower().Contains(lowerSearchTerm)
+            )
+            .ToList();
+    }
+
     public bool UpdateEntry(int index, DiaryEntry updatedEntry)
     {
         if (index >= 0 && index < Entries.Count)
         {
-           
             updatedEntry.Date = Entries[index].Date; 
             Entries[index] = updatedEntry;
             return true;
@@ -29,7 +46,6 @@ public class DiaryService
         return false;
     }
 
-    
     public bool DeleteEntry(int index)
     {
         if (index >= 0 && index < Entries.Count)
