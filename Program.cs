@@ -26,7 +26,7 @@ class Program
             Console.WriteLine("--- Dagboksappen - Meny ---");
             Console.WriteLine("1. Lägg till nytt inlägg");
             // Visar antalet inlägg direkt i menyn
-            Console.WriteLine($"2. Lista alla inlägg ({_diaryService.Entries.Count} st)"); 
+            Console.WriteLine($"2. Lista alla inlägg ({_diaryService.Entries.Count} st) (Inkl. Detaljvy)"); 
             Console.WriteLine("3. Avsluta");
             Console.Write("Välj ett alternativ: ");
 
@@ -84,7 +84,7 @@ class Program
         Console.ReadKey(true);
     }
 
-    // Metod för att lista alla inlägg
+    // Metod för att lista alla inlägg och sedan låta användaren välja en detaljvy
     static void ListEntries()
     {
         Console.Clear();
@@ -93,17 +93,53 @@ class Program
         if (_diaryService.Entries.Count == 0)
         {
             Console.WriteLine("Inga inlägg hittades.");
+            Console.WriteLine("\nTryck valfri tangent för att återgå till menyn.");
+            Console.ReadKey(true);
+            return; // Avslutar metoden om listan är tom
+        }
+
+        // Loppar igenom listan och skriver ut (titel och datum)
+        for (int i = 0; i < _diaryService.Entries.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {_diaryService.Entries[i]}"); 
+        }
+
+        // NY LOGIK: Fråga användaren vilket inlägg de vill se
+        Console.WriteLine("\nAnge numret på inlägget du vill se (eller tryck Enter för att gå tillbaka):");
+        string input = Console.ReadLine();
+
+        // Försöker konvertera input till ett nummer och validerar indexet
+        if (int.TryParse(input, out int index) && index > 0 && index <= _diaryService.Entries.Count)
+        {
+            // Gå till Detaljvy för valt inlägg (index - 1 eftersom listor är 0-baserade)
+            ViewEntry(index - 1); 
+            
+            // Efter ViewEntry, visar vi listan igen (för att inte hoppa direkt till menyn)
+            ListEntries();
+        }
+        else if (string.IsNullOrEmpty(input))
+        {
+            // Går tillbaka till menyn (gör ingenting)
         }
         else
         {
-            // Loppar igenom listan och skriver ut (använder ToString() från DiaryEntry)
-            for (int i = 0; i < _diaryService.Entries.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {_diaryService.Entries[i]}"); 
-            }
+            Console.WriteLine("Ogiltigt val. Tryck valfri tangent.");
+            Console.ReadKey(true);
         }
+    }
 
-        Console.WriteLine("\nTryck valfri tangent för att återgå till menyn.");
+    // NY METOD: Visa hela inlägget
+    static void ViewEntry(int index)
+    {
+        DiaryEntry entry = _diaryService.Entries[index];
+
+        Console.Clear();
+        Console.WriteLine($"--- Detaljer: {entry.Title} ---");
+        Console.WriteLine($"Datum: {entry.Date.ToString("yyyy-MM-dd HH:mm")}");
+        Console.WriteLine("-----------------------------------");
+        Console.WriteLine(entry.Text); // Hela inläggets innehåll
+        Console.WriteLine("-----------------------------------");
+        Console.WriteLine("\nTryck valfri tangent för att återgå till listan.");
         Console.ReadKey(true);
     }
 }
