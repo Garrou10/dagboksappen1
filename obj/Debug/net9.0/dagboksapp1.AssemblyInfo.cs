@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dagboksapp1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+279edd48c8393c26bec0a69be30c48a3b035bffe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5eacf114e4db45283eda34241494308bfde2defd")]
 [assembly: System.Reflection.AssemblyProductAttribute("dagboksapp1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dagboksapp1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

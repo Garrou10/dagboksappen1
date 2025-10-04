@@ -1,6 +1,6 @@
-﻿// Program.cs
-using System;
+﻿using System;
 using System.Linq; 
+using System.Collections.Generic;
 
 class Program
 {
@@ -23,8 +23,9 @@ class Program
             Console.WriteLine("1. Lägg till nytt inlägg");
             Console.WriteLine($"2. Lista/Visa inlägg ({_diaryService.Entries.Count} st)"); 
             Console.WriteLine("3. Ta bort ett inlägg"); 
-            Console.WriteLine("4. Redigera ett inlägg"); // NYTT MENYVAL
-            Console.WriteLine("5. Avsluta"); // Avsluta flyttad till 5
+            Console.WriteLine("4. Redigera ett inlägg");
+            Console.WriteLine("5. Sök inlägg"); 
+            Console.WriteLine("6. Avsluta"); 
             Console.Write("Välj ett alternativ: ");
 
             string choice = Console.ReadLine();
@@ -40,10 +41,13 @@ class Program
                 case "3": 
                     RemoveEntry();
                     break;
-                case "4": // HANTERAR REDIGERA
+                case "4": 
                     EditEntry();
                     break;
-                case "5": // HANTERAR AVSLUTA
+                case "5": 
+                    SearchDiary();
+                    break;
+                case "6": 
                     isRunning = false;
                     _diaryService.SaveToFile();
                     Console.WriteLine("\nSparar och avslutar...");
@@ -111,7 +115,7 @@ class Program
         }
         else if (string.IsNullOrEmpty(input))
         {
-           
+            
         }
         else
         {
@@ -177,7 +181,6 @@ class Program
         Console.ReadKey(true);
     }
     
-    
     static void EditEntry()
     {
         Console.Clear();
@@ -206,7 +209,6 @@ class Program
 
             Console.WriteLine($"\nRedigerar inlägg {index}: '{originalEntry.Title}'");
             
-            
             Console.Write($"Ny titel (lämna tom för att behålla '{originalEntry.Title}'): ");
             string newTitle = Console.ReadLine();
             if (string.IsNullOrEmpty(newTitle))
@@ -214,11 +216,9 @@ class Program
                 newTitle = originalEntry.Title;
             }
 
-            
             Console.WriteLine("\nNytt innehåll (lämna tomt för att behålla befintligt, skriv nytt och avsluta med tom rad):");
             string newText = "";
             string line;
-            
             
             while (!string.IsNullOrEmpty(line = Console.ReadLine()))
             {
@@ -230,14 +230,12 @@ class Program
                 newText = originalEntry.Text;
             }
             
-            
             DiaryEntry updatedEntry = new DiaryEntry
             {
                 Title = newTitle,
                 Text = newText.Trim()
             };
 
-            
             if (_diaryService.UpdateEntry(entryIndex, updatedEntry))
             {
                 Console.WriteLine($"\nInlägg {index} har uppdaterats! Tryck valfri tangent.");
@@ -255,6 +253,46 @@ class Program
         {
             Console.WriteLine("\nOgiltigt val.");
         }
+        Console.ReadKey(true);
+    }
+
+    static void SearchDiary()
+    {
+        Console.Clear();
+        Console.WriteLine("--- Sök i Dagboken ---");
+        Console.Write("Ange sökord: ");
+        string searchTerm = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            Console.WriteLine("Sökordet kan inte vara tomt.");
+            Console.WriteLine("\nTryck valfri tangent för att fortsätta.");
+            Console.ReadKey(true);
+            return;
+        }
+
+        List<DiaryEntry> results = _diaryService.SearchEntries(searchTerm);
+
+        Console.Clear();
+        Console.WriteLine($"--- Sökresultat för '{searchTerm}' ---");
+
+        if (results.Count == 0)
+        {
+            Console.WriteLine("Inga inlägg matchade din sökning.");
+        }
+        else
+        {
+            Console.WriteLine($"Hittade {results.Count} inlägg:");
+            Console.WriteLine("-----------------------------------");
+            
+            for (int i = 0; i < results.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {results[i]}"); 
+            }
+            Console.WriteLine("-----------------------------------");
+        }
+
+        Console.WriteLine("\nTryck valfri tangent för att återgå till menyn.");
         Console.ReadKey(true);
     }
 }

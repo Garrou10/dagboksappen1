@@ -1,9 +1,8 @@
-// DiaryService.cs
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using System.Linq; 
+using System.Linq;
 
 public class DiaryService
 {
@@ -16,7 +15,6 @@ public class DiaryService
         Entries.Add(entry);
     }
 
-    
     public List<DiaryEntry> SearchEntries(string searchTerm)
     {
         if (string.IsNullOrWhiteSpace(searchTerm))
@@ -26,7 +24,6 @@ public class DiaryService
 
         string lowerSearchTerm = searchTerm.ToLower();
 
-        
         return Entries
             .Where(e => 
                 e.Title.ToLower().Contains(lowerSearchTerm) ||
