@@ -1,0 +1,15 @@
+C:\Users\balac\Desktop\dagboksapp1\bin\Debug\net9.0\dagboksapp1.exe
+C:\Users\balac\Desktop\dagboksapp1\bin\Debug\net9.0\dagboksapp1.deps.json
+C:\Users\balac\Desktop\dagboksapp1\bin\Debug\net9.0\dagboksapp1.runtimeconfig.json
+C:\Users\balac\Desktop\dagboksapp1\bin\Debug\net9.0\dagboksapp1.dll
+C:\Users\balac\Desktop\dagboksapp1\bin\Debug\net9.0\dagboksapp1.pdb
+C:\Users\balac\Desktop\dagboksapp1\obj\Debug\net9.0\dagboksapp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\balac\Desktop\dagboksapp1\obj\Debug\net9.0\dagboksapp1.AssemblyInfoInputs.cache
+C:\Users\balac\Desktop\dagboksapp1\obj\Debug\net9.0\dagboksapp1.AssemblyInfo.cs
+C:\Users\balac\Desktop\dagboksapp1\obj\Debug\net9.0\dagboksapp1.csproj.CoreCompileInputs.cache
+C:\Users\balac\Desktop\dagboksapp1\obj\Debug\net9.0\dagboksapp1.sourcelink.json
+C:\Users\balac\Desktop\dagboksapp1\obj\Debug\net9.0\dagboksapp1.dll
+C:\Users\balac\Desktop\dagboksapp1\obj\Debug\net9.0\refint\dagboksapp1.dll
+C:\Users\balac\Desktop\dagboksapp1\obj\Debug\net9.0\dagboksapp1.pdb
+C:\Users\balac\Desktop\dagboksapp1\obj\Debug\net9.0\dagboksapp1.genruntimeconfig.cache
+C:\Users\balac\Desktop\dagboksapp1\obj\Debug\net9.0\ref\dagboksapp1.dll
